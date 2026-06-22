@@ -147,9 +147,9 @@ swm_ind = 'swm-cc'
 samp_no = swmcc_tst_samp
 
 swmcc_tst_metrics = np.load('out/%s/%s/swm-test-metrics_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
-swmcc_tst_metrics_skilltrn = np.load('out/%s/%s/swm-test-metrics-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
+swmcc_tst_metrics_skilltrn = np.load('out/%s/%s/swm-test-metrics-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
 swmcc_tst_apr1 = np.load('out/%s/%s/swm-test-apr1_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
-swmcc_tst_apr1_skilltrn = np.load('out/%s/%s/swm-test-apr1-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
+swmcc_tst_apr1_skilltrn = np.load('out/%s/%s/swm-test-apr1-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
 
 
 #load flexible FIRO pool runs
@@ -169,9 +169,9 @@ swm_ind = 'swm-cc'
 samp_no = swmcc_tst_samp
 
 swmcc_tstfpool_metrics = np.load('out/%s/%s/swm-test-metrics_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
-swmcc_tstfpool_metrics_skilltrn = np.load('out/%s/%s/swm-test-metrics-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
+swmcc_tstfpool_metrics_skilltrn = np.load('out/%s/%s/swm-test-metrics-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
 swmcc_tstfpool_apr1 = np.load('out/%s/%s/swm-test-apr1_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
-swmcc_tstfpool_apr1_skilltrn = np.load('out/%s/%s/swm-test-apr1-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
+swmcc_tstfpool_apr1_skilltrn = np.load('out/%s/%s/swm-test-apr1-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
 
 #/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #.............................................................................................................
@@ -218,10 +218,12 @@ yerr2[0,:] = y2 - np.quantile(store_inp2,lowerq,axis=0)
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
 ax1.set_title('Fixed FIRO pool',fontsize='x-large')
 #ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
 ax1.set_ylim(ylm)
@@ -262,10 +264,12 @@ yerr2[0,:] = y2 - np.quantile(store_inp2,lowerq,axis=0)
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
 ax1.set_title('Flex FIRO pool',fontsize='x-large')
 #ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
 ax1.set_ylim(ylm)
@@ -279,14 +283,14 @@ ax1.xaxis.set_ticklabels([])
 #ax1.xaxis.set_ticklabels(['0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
 ax1.text(0.6,0.975*ylm[1],'b)',fontsize='xx-large',fontweight='bold')
-
+"""
 l1, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
 l2, = ax1.bar(x2[0],y2[0],color=swmcc_skn4,width=0.35)
 l3, = ax1.bar(x2[1],y2[1],color=swmcc_sk0,width=0.35)
 l4, = ax1.bar(x2[2],y2[2],color=swmcc_skmod,width=0.35)
 l5, = ax1.bar(x2[3],y2[3],color=swmcc_skhi,width=0.35)
 #ax1.legend([l1,l2,l3,l4,l5],['$%s_{swm}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[0]),'$%s_{swm4c}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[2]),'$%s_{swm4c}$' %(skillmods[3])],loc='center left',fontsize='large',bbox_to_anchor=(1.0, 0.5),title='$CRPSS-SS_{train}$',title_fontsize='large',frameon=False)
-
+"""
 #.............................................................................................................
 #Row 2: # of spills metric w/ and w/o FIRO pool flexibility and w/ and w/o CC
 #Event based metrics
@@ -315,7 +319,8 @@ y2 = np.mean(spill_inp2,axis=0)
 
 #plt.rcParams['figure.figsize'] = [4,3]
 ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+#ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
 #ax1.set_title('Flex FIRO pool',fontsize='large')
 #ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
 ax1.set_ylim(ylm2)
@@ -342,7 +347,8 @@ y2 = np.mean(spill_inp2,axis=0)
 
 #plt.rcParams['figure.figsize'] = [4,3]
 ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+#ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
 #ax1.set_title('Flex FIRO pool',fontsize='large')
 #ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
 ax1.set_ylim(ylm2)
@@ -355,13 +361,19 @@ ax1.xaxis.set_ticklabels([])
 #ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
 ax1.text(0.6,0.9*ylm2[1],'d)',fontsize='xx-large',fontweight='bold')
-
+"""
 l1, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
 l2, = ax1.bar(x2[0],y2[0],color=swmcc_skn4,width=0.35)
 l3, = ax1.bar(x2[1],y2[1],color=swmcc_sk0,width=0.35)
 l4, = ax1.bar(x2[2],y2[2],color=swmcc_skmod,width=0.35)
 l5, = ax1.bar(x2[3],y2[3],color=swmcc_skhi,width=0.35)
 ax1.legend([l1,l2,l3,l4,l5],['$%s^{hist}$' %(skillmods[1]),'$%s^{4C}$' %(skillmods[0]),'$%s^{4C}$' %(skillmods[1]),'$%s^{4C}$' %(skillmods[2]),'$%s^{4C}$' %(skillmods[3])],loc='center left',fontsize='x-large',bbox_to_anchor=(1.0, 0.5),title='$SS_{mod}^{train}$',title_fontsize='x-large',frameon=False)
+"""
+l1, = ax1.bar(x2[0],y2[0],color=swm_skn4,width=0.35)
+l2, = ax1.bar(x2[1],y2[1],color=swm_sk0,width=0.35)
+l3, = ax1.bar(x2[2],y2[2],color=swm_skmod,width=0.35)
+l4, = ax1.bar(x2[3],y2[3],color=swm_skhi,width=0.35)
+ax1.legend([l1,l2,l3,l4],['$%s$' %(skillmods[0]),'$%s$' %(skillmods[1]),'$%s$' %(skillmods[2]),'$%s$' %(skillmods[3])],loc='center left',fontsize='x-large',bbox_to_anchor=(1.0, 0.5),title='$SS_{hist}^{train}$',title_fontsize='x-large',frameon=False)
 
 #.............................................................................................................
 #Row 3: FIRO pool overage w/ and w/o FIRO pool flexibility and w/ and w/o CC
@@ -372,8 +384,8 @@ nb = len(skillmods)
 
 ylm = ([0,1])
 xlm = ([0.5,nb+0.5])
-upperq = 0.9
-lowerq = 0.1
+upperq = 0.8
+lowerq = 0.2
 use_err = True
 ref_line = 0 
 
@@ -398,12 +410,14 @@ yerr2[yerr2<0] = 0
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
 #ax1.set_title('Flex FIRO pool',fontsize='large')
-ax1.set_xlabel('$SS_{mod}^{test,4C}$',fontsize='x-large')
+ax1.set_xlabel('$SS_{4C}^{test}$',fontsize='x-large')
 ax1.set_ylim(ylm)
 ax1.set_xlim(xlm)
 ax1.axhline(1,color=cb_gry,linestyle='--',linewidth=1)
@@ -422,6 +436,9 @@ ax1 = fig.add_subplot(gs0[5])
 inp1 = swmcc_tstfpool_metrics[2,:,:]
 inp2 = swmcc_tstfpool_metrics_skilltrn[2,:,:]
 
+#inp1 = np.nan_to_num(inp1)
+#inp2 = np.nan_to_num(inp2)
+
 y1 = np.mean(inp1,axis=0)
 y2 = np.mean(inp2,axis=0)
 
@@ -438,12 +455,14 @@ yerr2[yerr2<0] = 0
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    #ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
     ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
 #ax1.set_title('Flex FIRO pool',fontsize='large')
-ax1.set_xlabel('$SS_{mod}^{test,4C}$',fontsize='x-large')
+ax1.set_xlabel('$SS_{4C}^{test}$',fontsize='x-large')
 ax1.set_ylim(ylm)
 ax1.set_xlim(xlm)
 ax1.axhline(1,color=cb_gry,linestyle='--',linewidth=1)
@@ -455,21 +474,21 @@ ax1.set_xticks(ticks=(x1+0.2))
 ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
 ax1.text(0.65,0.9,'f)',fontsize='xx-large',fontweight='bold', bbox = dict(color='white',facecolor='white', alpha=0.75))
-
+"""
 l1, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
 l2, = ax1.bar(x2[0],y2[0],color=swmcc_skn4,width=0.35)
-l3, = ax1.bar(x2[1],y2[0],color=swmcc_sk0,width=0.35)
+l3, = ax1.bar(x2[1],y2[1],color=swmcc_sk0,width=0.35)
 l4, = ax1.bar(x2[2],y2[2],color=swmcc_skmod,width=0.35)
 l5, = ax1.bar(x2[3],y2[3],color=swmcc_skhi,width=0.35)
 #ax1.legend([l1,l2,l3,l4,l5],['$%s_{swm}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[0]),'$%s_{swm4c}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[2]),'$%s_{swm4c}$' %(skillmods[3])],loc='center left',fontsize='large',bbox_to_anchor=(1.0, 0.5),title='$CRPSS-SS_{train}$',title_fontsize='large',frameon=False)
-
+"""
 #syn_util.fig_title(fig,'April 1 Storage',loc=(-0.02,0.81),fontsize='xx-large',fontweight='bold',rotation=90,ha='center',va='center')
 syn_util.fig_title(fig,'Wet Season Storage',loc=(-0.02,0.81),fontsize='x-large',fontweight='bold',rotation=90,ha='center',va='center')
 syn_util.fig_title(fig,'Number of Spills',loc=(-0.02,0.515),fontsize='x-large',fontweight='bold',rotation=90,ha='center',va='center')
 syn_util.fig_title(fig,'FIRO Pool Overages',loc=(-0.02,0.21),fontsize='x-large',fontweight='bold',rotation=90,ha='center',va='center')
 
-fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/ops_plots/3x2_aggregate-storage-spills-fovg_4C-comparison_fig9_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
-fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/manuscript/3x2_aggregate-storage-spills-fovg_4C-comparison_fig9_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
+fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/ops_plots/3x2_aggregate-storage-spills-fovg_4C-comparison_fig9-new_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
+fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/manuscript/3x2_aggregate-storage-spills-fovg_4C-comparison_fig9-new_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
 
 
 #--------------------------------------------------------------------------------END-------------------------------------------------------------------

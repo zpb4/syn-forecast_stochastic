@@ -178,7 +178,7 @@ swmcc_tstfpool_apr1_skilltrn = np.load('out/%s/%s/swm-test-apr1-skilltrain_tocs-
 #Row 1: Storage metric w/ and w/o FIRO pool flexibility and w/ and w/o CC
 #Event based metrics
 #panel 1
-swm_ind = 'swm'
+swm_ind = 'swm-cc'
 nb = len(skillmods)
 
 ylow = 0.75
@@ -189,11 +189,17 @@ lowerq = 0.1
 use_err = False
 ref_line = model.top_of_varflood_ORO
 
-store_inp1 = swm_tst_metrics[13,:,:] / 1000
-store_inp2 = swm_tst_metrics_skilltrn[13,:,:] / 1000
+fig = plt.figure(layout='constrained',figsize=(7,9))
+gs0 = fig.add_gridspec(3,2)
 
-#store_inp1 = swm_tst_apr1/1000
-#store_inp2 = swm_tst_apr1_skilltrn/1000
+#panel 3
+ax1 = fig.add_subplot(gs0[0])
+
+store_inp1 = swmcc_tst_metrics[13,:,:]/1000
+store_inp2 = swmcc_tst_metrics_skilltrn[13,:,:]/1000
+
+#store_inp1 = swmcc_tst_apr1/1000
+#store_inp2 = swmcc_tst_apr1_skilltrn/1000
 
 x1 = np.arange(nb)+0.8
 x2 = np.arange(nb)+1.2
@@ -209,41 +215,35 @@ yerr2 = np.zeros((2,nb))
 yerr2[1,:] = np.quantile(store_inp2,upperq,axis=0) - y2
 yerr2[0,:] = y2 - np.quantile(store_inp2,lowerq,axis=0)
 
-fig = plt.figure(layout='constrained',figsize=(7,9))
-gs0 = fig.add_gridspec(3,2)
-ax1 = fig.add_subplot(gs0[0])
-
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
 ax1.set_title('Fixed FIRO pool',fontsize='x-large')
-#ax1.set_xlabel('$CRPSS-SS_{test-swm}$',fontsize='large')
+#ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
 ax1.set_ylim(ylm)
 ax1.set_xlim(xlm)
 ax1.axhline(K_ORO/1000,color='black',linestyle='--',linewidth=0.5,alpha=0.5)
-#l1, = ax1.plot(0,0,color=cb_gry,linestyle='--',linewidth=1)
-#l2, = ax1.plot(0,0,color=cb_grn,linestyle='--',linewidth=1)
-#ax1.legend([l1,l2],['K','WCM Apr 1 limit'],loc='upper left',fontsize='small',frameon=False)
 ax1.set_ylabel('Storage (MAF)',fontsize='large')
 #ax1.axhline(ref_line,color=cb_grn,linestyle='--',linewidth=1)
-#ax1.set_xticks(ticks=(x1+0.2))
-#ax1.xaxis.set_ticklabels(['0','0.4','0.8'])
+#ax1.yaxis.set_ticklabels([])
 ax1.xaxis.set_ticklabels([])
+#ax1.set_xticks(ticks=(x1+0.2))
+#ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
 ax1.text(0.6,0.975*ylm[1],'a)',fontsize='xx-large',fontweight='bold')
 
-#panel 2
+#panel 4
 ax1 = fig.add_subplot(gs0[1])
 
-store_inp1 = swm_tstfpool_metrics[13,:,:]/1000
-store_inp2 = swm_tstfpool_metrics_skilltrn[13,:,:]/1000
+store_inp1 = swmcc_tstfpool_metrics[13,:,:]/1000
+store_inp2 = swmcc_tstfpool_metrics_skilltrn[13,:,:]/1000
 
-#store_inp1 = swm_tstfpool_apr1/1000
-#store_inp2 = swm_tstfpool_apr1_skilltrn/1000
+#store_inp1 = swmcc_tstfpool_apr1/1000
+#store_inp2 = swmcc_tstfpool_apr1_skilltrn/1000
 
 x1 = np.arange(nb)+0.8
 x2 = np.arange(nb)+1.2
@@ -262,12 +262,12 @@ yerr2[0,:] = y2 - np.quantile(store_inp2,lowerq,axis=0)
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
 ax1.set_title('Flex FIRO pool',fontsize='x-large')
-#ax1.set_xlabel('$CRPSS-SS_{test-swm}$',fontsize='large')
+#ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
 ax1.set_ylim(ylm)
 ax1.set_xlim(xlm)
 ax1.axhline(K_ORO/1000,color='black',linestyle='--',linewidth=0.5,alpha=0.5)
@@ -276,35 +276,36 @@ ax1.axhline(K_ORO/1000,color='black',linestyle='--',linewidth=0.5,alpha=0.5)
 ax1.yaxis.set_ticklabels([])
 ax1.xaxis.set_ticklabels([])
 #ax1.set_xticks(ticks=(x1+0.2))
-#ax1.xaxis.set_ticklabels(['0','0.4','0.8'])
+#ax1.xaxis.set_ticklabels(['0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
 ax1.text(0.6,0.975*ylm[1],'b)',fontsize='xx-large',fontweight='bold')
 
-l1, = ax1.bar(x2[0],y2[0],color=swm_skn4,width=0.35)
-l2, = ax1.bar(x1[1],y1[1],color=swm_sk0,width=0.35)
-l3, = ax1.bar(x2[2],y2[2],color=swm_skmod,width=0.35)
-l4, = ax1.bar(x2[3],y2[3],color=swm_skhi,width=0.35)
-#ax1.legend([l1,l2,l3,l4],['$%s_{swm}$' %(skillmods[0]),'$%s_{swm}$' %(skillmods[1]),'$%s_{swm}$' %(skillmods[2]),'$%s_{swm}$' %(skillmods[3])],loc='center left',fontsize='large',bbox_to_anchor=(1.0, 0.5),title='$CRPSS-SS_{train}$',title_fontsize='large',frameon=False)
+l1, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
+l2, = ax1.bar(x2[0],y2[0],color=swmcc_skn4,width=0.35)
+l3, = ax1.bar(x2[1],y2[1],color=swmcc_sk0,width=0.35)
+l4, = ax1.bar(x2[2],y2[2],color=swmcc_skmod,width=0.35)
+l5, = ax1.bar(x2[3],y2[3],color=swmcc_skhi,width=0.35)
+#ax1.legend([l1,l2,l3,l4,l5],['$%s_{swm}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[0]),'$%s_{swm4c}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[2]),'$%s_{swm4c}$' %(skillmods[3])],loc='center left',fontsize='large',bbox_to_anchor=(1.0, 0.5),title='$CRPSS-SS_{train}$',title_fontsize='large',frameon=False)
 
 #.............................................................................................................
 #Row 2: # of spills metric w/ and w/o FIRO pool flexibility and w/ and w/o CC
 #Event based metrics
 #panel 1
-swm_ind = 'swm'
+swm_ind = 'swm-cc'
 nb = len(skillmods)
 
-ylm1 = ([0,6.2])
+ylm1 = ([0,6])
 ylm2 = ([0,60])
 xlm = ([0.5,nb+0.5])
 upperq = 0.9
 lowerq = 0.1
 use_err = False
 
-#store_inp1 = swm_tst_metrics[13,:,:]
-#store_inp2 = swm_tst_metrics_skilltrn[13,:,:] 
+#panel 3
+ax1 = fig.add_subplot(gs0[2])
 
-spill_inp1 = swm_tst_metrics[11,:,:]
-spill_inp2 = swm_tst_metrics_skilltrn[11,:,:] 
+spill_inp1 = swmcc_tst_metrics[11,:,:]
+spill_inp2 = swmcc_tst_metrics_skilltrn[11,:,:]
 
 x1 = np.arange(nb)+0.8
 x2 = np.arange(nb)+1.2
@@ -312,61 +313,61 @@ x2 = np.arange(nb)+1.2
 y1 = np.mean(spill_inp1,axis=0)
 y2 = np.mean(spill_inp2,axis=0)
 
-ax1 = fig.add_subplot(gs0[2])
-
 #plt.rcParams['figure.figsize'] = [4,3]
 ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
-#ax1.set_title('Fixed FIRO pool',fontsize='large')
-#ax1.set_xlabel('$CRPSS-SS_{test-swm}$',fontsize='large')
-ax1.set_ylim(ylm1)
+ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+#ax1.set_title('Flex FIRO pool',fontsize='large')
+#ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
+ax1.set_ylim(ylm2)
 ax1.set_xlim(xlm)
-ax1.set_ylabel('Spills',fontsize='large')
-ax1.axhline(ref_line,color=cb_grn,linestyle='--',linewidth=1)
-#ax1.set_xticks(ticks=(x1+0.2))
-#ax1.xaxis.set_ticklabels(['0','0.4','0.8'])
+ax1.set_ylabel('No. of Spills',fontsize='large')
+#ax1.yaxis.set_ticklabels([])
 ax1.xaxis.set_ticklabels([])
+#ax1.set_xticks(ticks=(x1+0.2))
+#ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
-#ax1.text(0.6,0.9*ylm1[1],'c)',fontsize='xx-large',fontweight='bold')
-ax1.text(0.65,0.9*ylm1[1],'c)',fontsize='xx-large',fontweight='bold', bbox = dict(color='white',facecolor='white', alpha=0.75))
+ax1.text(0.6,0.9*ylm2[1],'c)',fontsize='xx-large',fontweight='bold')
 
-#panel 2
+#panel 4
 ax1 = fig.add_subplot(gs0[3])
 
-spill_inp1 = swm_tstfpool_metrics[11,:,:]
-spill_inp2 = swm_tstfpool_metrics_skilltrn[11,:,:]
+spill_inp1 = swmcc_tstfpool_metrics[11,:,:]
+spill_inp2 = swmcc_tstfpool_metrics_skilltrn[11,:,:]
+
+x1 = np.arange(nb)+0.8
+x2 = np.arange(nb)+1.2
 
 y1 = np.mean(spill_inp1,axis=0)
 y2 = np.mean(spill_inp2,axis=0)
 
 #plt.rcParams['figure.figsize'] = [4,3]
 ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35)
+ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
 #ax1.set_title('Flex FIRO pool',fontsize='large')
-#ax1.set_xlabel('$CRPSS-SS_{test-swm}$',fontsize='large')
-ax1.set_ylim(ylm1)
+#ax1.set_xlabel('$CRPSS-SS_{test}$',fontsize='large')
+ax1.set_ylim(ylm2)
 ax1.set_xlim(xlm)
 #ax1.set_ylabel('Storage (TAF)',fontsize='large')
-ax1.axhline(ref_line,color=cb_grn,linestyle='--',linewidth=1)
+#ax1.axhline(ref_line,color=cb_grn,linestyle='--',linewidth=1)
 ax1.yaxis.set_ticklabels([])
 ax1.xaxis.set_ticklabels([])
 #ax1.set_xticks(ticks=(x1+0.2))
-#ax1.xaxis.set_ticklabels(['0','0.4','0.8'])
+#ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
 ax1.tick_params(axis='both',which='major',labelsize='large')
-ax1.text(0.6,0.9*ylm1[1],'d)',fontsize='xx-large',fontweight='bold')
+ax1.text(0.6,0.9*ylm2[1],'d)',fontsize='xx-large',fontweight='bold')
 
-l1, = ax1.bar(x2[0],y2[0],color=swm_skn4,width=0.35)
-l2, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
-l3, = ax1.bar(x2[2],y2[2],color=swm_skmod,width=0.35)
-l4, = ax1.bar(x2[3],y2[3],color=swm_skhi,width=0.35)
-ax1.legend([l1,l2,l3,l4],['$%s$' %(skillmods[0]),'$%s$' %(skillmods[1]),'$%s$' %(skillmods[2]),'$%s$' %(skillmods[3])],loc='center left',fontsize='x-large',bbox_to_anchor=(1.0, 0.5),title='$SS_{hist}^{train}$',title_fontsize='x-large',frameon=False)
-
+l1, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
+l2, = ax1.bar(x2[0],y2[0],color=swmcc_skn4,width=0.35)
+l3, = ax1.bar(x2[1],y2[1],color=swmcc_sk0,width=0.35)
+l4, = ax1.bar(x2[2],y2[2],color=swmcc_skmod,width=0.35)
+l5, = ax1.bar(x2[3],y2[3],color=swmcc_skhi,width=0.35)
+ax1.legend([l1,l2,l3,l4,l5],['$%s_{hist}$' %(skillmods[1]),'$%s_{4C}$' %(skillmods[0]),'$%s_{4C}$' %(skillmods[1]),'$%s_{4C}$' %(skillmods[2]),'$%s_{4C}$' %(skillmods[3])],loc='center left',fontsize='x-large',bbox_to_anchor=(1.0, 0.5),title='$SS^{train}$',title_fontsize='x-large',frameon=False)
 
 #.............................................................................................................
 #Row 3: FIRO pool overage w/ and w/o FIRO pool flexibility and w/ and w/o CC
 #Event based metrics
 #panel 1
-swm_ind = 'swm'
+swm_ind = 'swm-cc'
 nb = len(skillmods)
 
 ylm = ([0,1])
@@ -376,57 +377,10 @@ lowerq = 0.2
 use_err = True
 ref_line = 0 
 
-inp1 = swm_tst_metrics[2,:,:]
-inp1[np.isnan(inp1)] = 0
-inp2 = swm_tst_metrics_skilltrn[2,:,:]
-inp2[np.isnan(inp2)] = 0
-
-x1 = np.arange(nb)+0.8
-x2 = np.arange(nb)+1.2
-
-y1 = np.mean(inp1,axis=0)
-y2 = np.mean(inp2,axis=0)
-
-yerr1 = np.zeros((2,nb))
-yerr1[1,:] = np.quantile(inp1,upperq,axis=0) - y1
-yerr1[0,:] = y1 - np.quantile(inp1,lowerq,axis=0)
-
-yerr2 = np.zeros((2,nb))
-yerr2[1,:] = np.quantile(inp2,upperq,axis=0) - y2
-yerr2[0,:] = y2 - np.quantile(inp2,lowerq,axis=0)
-
 ax1 = fig.add_subplot(gs0[4])
 
-#plt.rcParams['figure.figsize'] = [4,3]
-if use_err == True:
-    ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
-if use_err == False:
-    ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ax1.bar(x2,y2,color=([swm_sk0,swm_skmod,swm_skhi]),width=0.35)
-#ax1.set_title('Fixed FIRO pool',fontsize='large')
-#ax1.set_xlabel('$CRPSS-SS_{test-swm}$',fontsize='large')
-ax1.set_ylim(ylm)
-ax1.set_xlim(xlm)
-ax1.axhline(1,color=cb_gry,linestyle='--',linewidth=1)
-#l1, = ax1.plot(0,0,color=cb_gry,linestyle='--',linewidth=1)
-#l2, = ax1.plot(0,0,color=cb_grn,linestyle='--',linewidth=1)
-#ax1.legend([l1,l2],['K','WCM Apr 1 limit'],loc='upper left',fontsize='small',frameon=False)
-ax1.set_ylabel('FIRO overage (% of flood pool)',fontsize='large')
-ax1.axhline(ref_line,color=cb_brwn,linestyle='--',linewidth=1)
-ax1.set_xticks(ticks=(x1+0.2))
-ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
-ax1.set_xlabel('$SS_{hist}^{test}$',fontsize='x-large')
-ax1.tick_params(axis='both',which='major',labelsize='large')
-ax1.text(0.6,0.9,'e)',fontsize='xx-large',fontweight='bold')
-
-#panel 2
-ax1 = fig.add_subplot(gs0[5])
-
-inp1 = swm_tstfpool_metrics[2,:,:]
-inp1[np.isnan(inp1)] = 0
-inp2 = swm_tstfpool_metrics_skilltrn[2,:,:]
-inp2[np.isnan(inp2)] = 0
+inp1 = swmcc_tst_metrics[2,:,:]
+inp2 = swmcc_tst_metrics_skilltrn[2,:,:]
 
 y1 = np.mean(inp1,axis=0)
 y2 = np.mean(inp2,axis=0)
@@ -444,38 +398,78 @@ yerr2[yerr2<0] = 0
 #plt.rcParams['figure.figsize'] = [4,3]
 if use_err == True:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
-    ##ax1.bar(x2,y2,color=([swm_skn4,swm_sk0,swm_skmod,swm_skhi]),width=0.35,yerr=yerr2)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
 if use_err == False:
     ax1.bar(x1,y1,color=swm_sk0,width=0.35)
-    ##ax1.bar(x2,y2,color=([swm_sk0,swm_skmod,swm_skhi]),width=0.35)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
 #ax1.set_title('Flex FIRO pool',fontsize='large')
-#ax1.set_xlabel('$CRPSS-SS_{test-swm}$',fontsize='large')
+ax1.set_xlabel('$SS_{4C}^{test}$',fontsize='x-large')
+ax1.set_ylim(ylm)
+ax1.set_xlim(xlm)
+ax1.axhline(1,color=cb_gry,linestyle='--',linewidth=1)
+ax1.set_ylabel('FIRO overage (% of flood pool)',fontsize='large')
+ax1.axhline(ref_line,color=cb_brwn,linestyle='--',linewidth=1)
+#ax1.yaxis.set_ticklabels([])
+#ax1.xaxis.set_ticklabels([])
+ax1.set_xticks(ticks=(x1+0.2))
+ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
+ax1.tick_params(axis='both',which='major',labelsize='large')
+ax1.text(0.65,0.9,'e)',fontsize='xx-large',fontweight='bold', bbox = dict(color='white',facecolor='white', alpha=0.75))
+
+#panel 4
+ax1 = fig.add_subplot(gs0[5])
+
+inp1 = swmcc_tstfpool_metrics[2,:,:]
+inp2 = swmcc_tstfpool_metrics_skilltrn[2,:,:]
+
+y1 = np.mean(inp1,axis=0)
+y2 = np.mean(inp2,axis=0)
+
+yerr1 = np.zeros((2,nb))
+yerr1[1,:] = np.quantile(inp1,upperq,axis=0) - y1
+yerr1[0,:] = y1 - np.quantile(inp1,lowerq,axis=0)
+yerr1[yerr1<0] = 0 
+
+yerr2 = np.zeros((2,nb))
+yerr2[1,:] = np.quantile(inp2,upperq,axis=0) - y2
+yerr2[0,:] = y2 - np.quantile(inp2,lowerq,axis=0)
+yerr2[yerr2<0] = 0 
+
+#plt.rcParams['figure.figsize'] = [4,3]
+if use_err == True:
+    ax1.bar(x1,y1,color=swm_sk0,width=0.35,yerr=yerr1)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35,yerr=yerr2)
+if use_err == False:
+    ax1.bar(x1,y1,color=swm_sk0,width=0.35)
+    ax1.bar(x2,y2,color=([swmcc_skn4,swmcc_sk0,swmcc_skmod,swmcc_skhi]),width=0.35)
+#ax1.set_title('Flex FIRO pool',fontsize='large')
+ax1.set_xlabel('$SS_{4C}^{test}$',fontsize='x-large')
 ax1.set_ylim(ylm)
 ax1.set_xlim(xlm)
 ax1.axhline(1,color=cb_gry,linestyle='--',linewidth=1)
 #ax1.set_ylabel('Storage (TAF)',fontsize='large')
 ax1.axhline(ref_line,color=cb_brwn,linestyle='--',linewidth=1)
+ax1.yaxis.set_ticklabels([])
+#ax1.xaxis.set_ticklabels([])
 ax1.set_xticks(ticks=(x1+0.2))
 ax1.xaxis.set_ticklabels(['-0.4','0','0.4','0.8'])
-ax1.set_xlabel('$SS_{hist}^{test}$',fontsize='x-large')
-ax1.yaxis.set_ticklabels([])
 ax1.tick_params(axis='both',which='major',labelsize='large')
-ax1.text(0.6,0.9,'f)',fontsize='xx-large',fontweight='bold')
+ax1.text(0.65,0.9,'f)',fontsize='xx-large',fontweight='bold', bbox = dict(color='white',facecolor='white', alpha=0.75))
 
-l1, = ax1.bar(x2[0],y2[0],color=swm_skn4,width=0.35)
-l2, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
-l3, = ax1.bar(x2[2],y2[2],color=swm_skmod,width=0.35)
-l4, = ax1.bar(x2[3],y2[3],color=swm_skhi,width=0.35)
-#ax1.legend([l1,l2,l3,l4],['$%s_{swm}$' %(skillmods[0]),'$%s_{swm}$' %(skillmods[1]),'$%s_{swm}$' %(skillmods[2]),'$%s_{swm}$' %(skillmods[3])],loc='center left',fontsize='large',bbox_to_anchor=(1.0, 0.5),title='$CRPSS-SS_{train}$',title_fontsize='large',frameon=False)
-
+l1, = ax1.bar(x1[0],y1[0],color=swm_sk0,width=0.35)
+l2, = ax1.bar(x2[0],y2[0],color=swmcc_skn4,width=0.35)
+l3, = ax1.bar(x2[1],y2[0],color=swmcc_sk0,width=0.35)
+l4, = ax1.bar(x2[2],y2[2],color=swmcc_skmod,width=0.35)
+l5, = ax1.bar(x2[3],y2[3],color=swmcc_skhi,width=0.35)
+#ax1.legend([l1,l2,l3,l4,l5],['$%s_{swm}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[0]),'$%s_{swm4c}$' %(skillmods[1]),'$%s_{swm4c}$' %(skillmods[2]),'$%s_{swm4c}$' %(skillmods[3])],loc='center left',fontsize='large',bbox_to_anchor=(1.0, 0.5),title='$CRPSS-SS_{train}$',title_fontsize='large',frameon=False)
 
 #syn_util.fig_title(fig,'April 1 Storage',loc=(-0.02,0.81),fontsize='xx-large',fontweight='bold',rotation=90,ha='center',va='center')
 syn_util.fig_title(fig,'Wet Season Storage',loc=(-0.02,0.81),fontsize='x-large',fontweight='bold',rotation=90,ha='center',va='center')
 syn_util.fig_title(fig,'Number of Spills',loc=(-0.02,0.515),fontsize='x-large',fontweight='bold',rotation=90,ha='center',va='center')
 syn_util.fig_title(fig,'FIRO Pool Overages',loc=(-0.02,0.21),fontsize='x-large',fontweight='bold',rotation=90,ha='center',va='center')
 
-fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/ops_plots/3x2_aggregate-storage-spills-fovg_hist-comparison_fig8_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
-fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/manuscript/3x2_aggregate-storage-spills-fovg_hist-comparison_fig8_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
+fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/ops_plots/3x2_aggregate-storage-spills-fovg_4C-comparison_fig9_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
+fig.savefig('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/manuscript/3x2_aggregate-storage-spills-fovg_4C-comparison_fig9_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_same-swm=%s_nevts=%s_cutoff=%s.png' %(use_firo_top,use_firo_bottom,seed,skillmods,skill_dcy,skill_tail,swm_ind,same_swm,n_evts,yr_cutoff),dpi=300,bbox_inches='tight')
 
 
 #--------------------------------------------------------------------------------END-------------------------------------------------------------------

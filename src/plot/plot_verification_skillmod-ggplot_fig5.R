@@ -121,7 +121,7 @@ for(i in 1:length(skill_mods)){
   shefs_plt_dt <- data.table(x=0:15,hefs=rbind(rep(obs_swm[swm_evt_idx-lead],dim(hefs_fwd)[1]),shefs_ens_sset[i,,]),
                              obs=c(obs_fwd_swm[swm_evt_idx-lead,]))
   
-  tt <- paste('$SS_{mod}:\\ ',skill_mods[i],'$',sep='')
+  tt <- paste('$SS:\\ ',skill_mods[i],'$',sep='')
   ylm = ylm_scale * max(hefs_plt_dt$obs)
   #convert to long form
   df <- melt(shefs_plt_dt,id='x')
@@ -132,9 +132,9 @@ for(i in 1:length(skill_mods)){
   hefs_ens_plt<-ggplot(df)+theme_minimal()+
     #geom_smooth(mapping=aes(x=x,y=value,group=variable,color=grp,size=grp,alpha=grp),se=F,span=.15)+
     geom_line(mapping=aes(x=x,y=value,group=variable,color=col,linewidth=col,alpha=col))+
-    scale_color_manual(values=c('obs'=clrs[[4]],'shefs'=clrs[[9]]), labels=c(TeX('$s.hyd_{hist}$'),TeX('$s.HEFS_{hist}$')))+
-    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$s.hyd_{hist}$'),TeX('$s.HEFS_{hist}$')))+
-    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$s.hyd_{hist}$'),TeX('$s.HEFS_{hist}$')))+
+    scale_color_manual(values=c('obs'=clrs[[4]],'shefs'=clrs[[9]]), labels=c(TeX('$syn.\\,hydro_{hist}$'),TeX('$syn.\\,fcst_{hist}$')))+
+    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$syn.\\,hydro_{hist}$'),TeX('$syn.\\,fcst_{hist}$')))+
+    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$syn.\\,hydro_{hist}$'),TeX('$syn.\\,fcst_{hist}$')))+
     geom_vline(xintercept = lead,linetype='dotted',linewidth=0.25)+
     {if(i==length(skill_mods))
       annotate('text',x=lead,y=0.95*ylm,label=swm_evt_date,size=4,hjust=-0.25)}+
@@ -194,9 +194,9 @@ for(i in 1:length(skill_mods)){
   hefs_ens_plt<-ggplot(df)+theme_minimal()+
     #geom_smooth(mapping=aes(x=x,y=value,group=variable,color=grp,size=grp,alpha=grp),se=F,span=.15)+
     geom_line(mapping=aes(x=x,y=value,group=variable,color=col,linewidth=col,alpha=col))+
-    scale_color_manual(values=c('obs'=clrs[[2]],'shefs'=clrs[[9]]), labels=c(TeX('$s.hyd_{4C}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$s.hyd_{4C}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$s.hyd_{4C}$'),TeX('$s.HEFS_{4C}$')))+
+    scale_color_manual(values=c('obs'=clrs[[2]],'shefs'=clrs[[9]]), labels=c(TeX('$syn.\\,hydro_{4C}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$syn.\\,hydro_{4C}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$syn.\\,hydro_{4C}$'),TeX('$syn.\\,fcst_{4C}$')))+
     geom_vline(xintercept = lead,linetype='dotted',linewidth=0.25)+
     {if(i==length(skill_mods))
       annotate('text',x=lead,y=0.95*ylm,label=swm_evt_date,size=4,hjust=-0.25)}+
@@ -258,9 +258,9 @@ for(l in 1:length(lds)){
   
   ecrps_bplt <- ggplot(df)+theme_minimal()+
     geom_boxplot(aes(x=factor(x),y=value,fill=factor(grp),color=factor(grp)),width=.5,outlier.size = .5,outlier.color = clrs[[9]],outlier.alpha = 0.25)+
-    scale_fill_manual(name='',values=c('shefs'=str_c(clrs[[9]],'50'),'shefscc'=str_c(clrs[[9]],'50')), labels=c(TeX('$s.HEFS_{hist}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_color_manual(name='',values=c('shefs'=clrs[[4]],'shefscc'=clrs[[2]]), labels=c(TeX('$s.HEFS_{hist}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_x_discrete(breaks=1:length(skill_mods),labels=xlbs,name=TeX('$SS_{mod}$'))+
+    scale_fill_manual(name='',values=c('shefs'=str_c(clrs[[9]],'50'),'shefscc'=str_c(clrs[[9]],'50')), labels=c(TeX('$syn.\\,fcst_{hist}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_color_manual(name='',values=c('shefs'=clrs[[4]],'shefscc'=clrs[[2]]), labels=c(TeX('$syn.\\,fcst_{hist}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_x_discrete(breaks=1:length(skill_mods),labels=xlbs,name=TeX('$SS$'))+
     scale_y_continuous(name = 'CRPSS')+
     coord_cartesian(ylim = c(0,1))+
     labs(title=paste('Lead',lds[l]))+

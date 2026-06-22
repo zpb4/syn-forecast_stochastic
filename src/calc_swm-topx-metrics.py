@@ -7,6 +7,7 @@ Created on Wed Oct  1 10:26:24 2025
 
 import sys
 import os
+sys.path.insert(0, os.path.abspath('./src'))
 sys.path.insert(0, os.path.abspath('../Synthetic-Forecast_Verification/src'))
 import numpy as np
 import pandas as pd
@@ -250,6 +251,34 @@ for i in range(len(tst_skillmods)):
     swmcc_tst_arr_skilltrn[i,9,:] = np.append(np.abs(np.diff(R)),0) #ramping rates
 
 np.savez('out/%s/%s/swm-test-array-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(tst_skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff),arr=swmcc_tst_arr_skilltrn)
+
+swmcc_tst_arr_skilltrn_hist = np.zeros((len(tst_skillmods),10,np.shape(Q_swm_trn)[0]))
+
+for i in range(len(tst_skillmods)):
+    skill_mod = tst_skillmods[i]
+    risk_curve = rcurve_arr_swm[i,:]
+    Qf = syn_util.extract_skillmod_swm(sd_swm,ed_swm,samp_no,path,loc,site,syn_pct,syn_objpwr,syn_optstrat,syn_setup,same_swm,K,skill_mod,skill_dcy,skill_tail,swm_ind,yr_cutoff)
+    Qf = Qf[:,:,:max_lds] # just use 14 lead days
+    ne = np.shape(Qf)[1]
+    nl = max_lds    
+    Qf_summed = np.cumsum(Qf, axis=2)
+    Qf_summed_sorted = np.sort(Qf_summed, axis = 1)
+    ix = ((1 - risk_curve) * (ne)).astype(np.int32)-1
+    S, R, firot, firob, spill, Q_cp, rel_leads, firo_ovg, ddown = model.simulate_nonjit(firo_pool_top=firo_top_swm[i], firo_pool_bottom=firo_bottom_swm[i], ix=ix, Q=Q_swmcc_tst, Qf=Qf_summed_sorted, dowy=dowy, tocs=tocs, K = K, Rmax = Rmax, ramping_rate = ramping_rate, store_vec=store_vec, elev_vec=elev_vec, elev_ctrl_vec=elev_ctrl_vec, flow_ctrl_vec=flow_ctrl_vec,policy='firo', tocs_reset='none',fixed_top=use_firo_top, fixed_bottom=use_firo_bottom)
+    swmcc_tst_arr_skilltrn_hist[i,0,:] = S
+    swmcc_tst_arr_skilltrn_hist[i,1,:] = R
+    swmcc_tst_arr_skilltrn_hist[i,2,:] = firot
+    swmcc_tst_arr_skilltrn_hist[i,3,:] = spill
+    swmcc_tst_arr_skilltrn_hist[i,4,:] = rel_leads
+    swmcc_tst_arr_skilltrn_hist[i,5,:] = firo_ovg
+    swmcc_tst_arr_skilltrn_hist[i,6,:] = ddown
+    swmcc_tst_arr_skilltrn_hist[i,7,:] = firob
+    swmcc_tst_arr_skilltrn_hist[i,8,:] = firo_ovg / (K_ORO - firot) #firo overage expressed as percent of flood space encroachment
+    firot_index = (K_ORO - firot)
+    swmcc_tst_arr_skilltrn_hist[i,8,np.where(firot_index==0.0)] = 0
+    swmcc_tst_arr_skilltrn_hist[i,9,:] = np.append(np.abs(np.diff(R)),0) #ramping rates
+
+np.savez('out/%s/%s/swm-test-array-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(tst_skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff),arr=swmcc_tst_arr_skilltrn_hist)
 
 
 ########################################################END#####################################################

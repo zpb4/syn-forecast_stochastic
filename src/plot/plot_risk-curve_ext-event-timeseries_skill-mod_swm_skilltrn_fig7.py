@@ -219,7 +219,7 @@ f = plt.figure(layout='constrained',figsize=(5,6))
 gs0 = f.add_gridspec(2,1)
 
 evt_idx = evt_idx_swm_tst[swm_evt_no-1]
-
+"""
 evt_date = df_idx.values[evt_idx].strftime("%Y-%m-%d")
 evt_mo = evt_date[5:7]
 if np.int64(evt_mo) >=8 and np.int64(evt_mo) <=12:
@@ -230,8 +230,8 @@ ref_yr_st = '1984-08-01'
 ref_yr_ed = '1985-06-30'
 st_idx = len(pd.date_range(ref_yr_st,evt_ref,freq='D'))
 ed_idx = len(pd.date_range(evt_ref,ref_yr_ed,freq='D'))
-
 dt_idx = np.arange(evt_idx-st_idx,evt_idx+ed_idx)
+"""
 
 spills_swmn4tst_skilltrn = np.count_nonzero(swm_tst_arr_skilltrn[0,3,:])
 spills_swm0tst_skilltrn = np.count_nonzero(swm_tst_arr_skilltrn[1,3,:])
@@ -278,8 +278,8 @@ a1.xaxis.set_major_formatter(dt_format)
 a1.xaxis.set_ticklabels([])
 a1.xaxis.set_major_locator(mdates.DayLocator(interval=5)) 
 a1.tick_params(axis='both',which='major',labelsize='large')
-a1.annotate("",xy=(.915,0.832),xytext=(.99,0.832), xycoords='figure fraction',textcoords='figure fraction', arrowprops=dict(arrowstyle="->",color=swm_skn4,linewidth=2))
-a1.annotate("",xy=(.915,0.822),xytext=(.99,0.822), xycoords='figure fraction',textcoords='figure fraction', arrowprops=dict(arrowstyle="->",color=swm_sk0,linewidth=2))
+a1.annotate("",xy=(.915,0.828),xytext=(.99,0.828), xycoords='figure fraction',textcoords='figure fraction', arrowprops=dict(arrowstyle="->",color=swm_sk0,linewidth=2))
+a1.annotate("",xy=(.915,0.820),xytext=(.99,0.820), xycoords='figure fraction',textcoords='figure fraction', arrowprops=dict(arrowstyle="->",color=swm_skn4,linewidth=2))
 a1.annotate("",xy=(.915,0.88),xytext=(.99,0.88), xycoords='figure fraction',textcoords='figure fraction', arrowprops=dict(arrowstyle="->",color=swm_skmod,linewidth=2))
 a1.annotate("",xy=(.915,0.905),xytext=(.99,0.905), xycoords='figure fraction',textcoords='figure fraction', arrowprops=dict(arrowstyle="->",color=swm_skhi,linewidth=2))
 
@@ -292,7 +292,7 @@ l2, = a2.plot(df_idx[dt_idx], swm_tst_arr_skilltrn[1,1,dt_idx] / kcfs_to_tafd,c=
 l3, = a2.plot(df_idx[dt_idx], swm_tst_arr_skilltrn[2,1,dt_idx] / kcfs_to_tafd, c=swm_skmod,alpha=0.5)
 l4, = a2.plot(df_idx[dt_idx], swm_tst_arr_skilltrn[3,1,dt_idx] / kcfs_to_tafd, c=swm_skhi,alpha=0.5)
 l5, = a2.plot(df_idx[dt_idx], Q_swm_tst[dt_idx] / kcfs_to_tafd,c='black',linewidth=3,alpha=0.25)
-a2.legend([l1,l2,l3,l4,l5],['$SS_{mod}:%s$' %(skillmods[0]),'$SS_{mod}:%s$' %(skillmods[1]),'$SS_{mod}:%s$' %(skillmods[2]),'$SS_{mod}:%s$' %(skillmods[3]),'$Q$'],bbox_transform=a2.transAxes,loc=(0.01,.325),fontsize='large',frameon=False)
+a2.legend([l1,l2,l3,l4,l5],['$SS:%s$' %(skillmods[0]),'$SS:%s$' %(skillmods[1]),'$SS:%s$' %(skillmods[2]),'$SS:%s$' %(skillmods[3]),'$Q$'],bbox_transform=a2.transAxes,loc=(0.01,.325),fontsize='large',frameon=False)
 a2.axhline(Rmax / kcfs_to_tafd, color='red')
 a2.axvline(df_idx[evt_idx],linewidth=0.5,color='gray',alpha=0.5,linestyle='--')
 a2.text(df_idx[evt_idx+int(pad/2)],1.025*Rmax / kcfs_to_tafd,'$R_{max}$',color='red',fontsize='large')

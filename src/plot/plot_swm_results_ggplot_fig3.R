@@ -183,7 +183,8 @@ ffc_ggp<-ggplot(data=ffc_dt)+theme_minimal()+
                      labels = c(0.001,0.02,0.15,0.5,0.85,0.98,0.999),
                      limits = c(-3.1,3.1))+
   #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc,fill='swm4C_99'),alpha=0.15)+
-  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin),alpha=0.15,fill=clrs[[4]])+
   geom_line(mapping=aes(x=x,y=obs,color='obs'),linewidth=.75)+
   geom_line(mapping=aes(x=x,y=sim,color='sim'),linewidth=.75)+
   #geom_line(mapping=aes(x=x,y=samp,color='swm4C'),linewidth=.5,alpha=0.5)+
@@ -192,20 +193,20 @@ ffc_ggp<-ggplot(data=ffc_dt)+theme_minimal()+
   coord_cartesian(xlim=c(-3.1,1.25),ylim=c(1,500),expand=F)+
   #scale_color_manual(breaks=c('obs','sim','swm4C'),values=c(clrs[[1]],clrs[[3]],clrs[[2]]))+
   #scale_fill_manual(breaks=c('swm_99','swm4C_99'),values=c(clrs[[9]],clrs[[2]]))+
-  scale_color_manual(breaks=c('obs','sim'),labels=c(TeX('$obs_{cal}$'),TeX('$sim_{cal}$')),values=c(clrs[[1]],clrs[[6]]))+
-  scale_fill_manual(breaks=c('swm_99'),labels=TeX('$s.hyd^{99}_{hist}$'),values=c(clrs[[4]]))+
+  scale_color_manual(breaks=c('obs','sim'),labels=c(TeX('$obs$'),TeX('$SAC-SMA$')),values=c(clrs[[1]],clrs[[6]]))+
+  #scale_fill_manual(breaks=c('swm_99'),labels=TeX('$s.hyd^{99}_{hist}$'),values=c(clrs[[4]]))+
   theme(legend.position = 'inside',
-        legend.position.inside = c(.8,.8),
+        legend.position.inside = c(.5,.85),
         legend.key.spacing.y = unit(0.01,'cm'),
         legend.key.spacing.x = unit(0.01,'cm'),
         legend.title=element_blank(),
-        axis.text=element_text(size=9),
-        axis.title=element_text(size=12),
-        legend.text = element_text(size=9),
+        axis.text=element_text(size=11),
+        axis.title=element_text(size=14),
+        legend.text = element_text(size=12),
         panel.grid.major.y = element_line(size=1))+
   theme(axis.text.x=element_blank(),
-        axis.title.x=element_blank())+
-  guides(shape = guide_legend(order=2),col=guide_legend(order=1))
+        axis.title.x=element_blank())
+  #guides(shape = guide_legend(order=2),col=guide_legend(order=1))
 
 ggsave(paste('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/swm_plots/ffc-annmax-samps.png',sep=''),ffc_ggp,dpi=320,width=3.5,height=3,unit='in')
 ffc_ggp
@@ -256,7 +257,8 @@ annmax_ggp<-ggplot(data=annmax_dt)+theme_minimal()+
   geom_point(mapping=aes(x=x_swm,y=y_stoch,color='sim'),size=.5,shape=16)+
   #geom_point(mapping=aes(x=x_swm,y=y_stoch_cc,color='sim_cc'),size=.5,shape=16)+
   #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc,fill='swm4C_99'),alpha=0.15)+
-  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,),alpha=0.15,fill=clrs[[4]])+
   geom_line(mapping=aes(x=x_swm,y=swm_samp,color='swm-samp'),linewidth=.75)+
   #geom_line(mapping=aes(x=x_swm,y=swm_cc_samp,color='swm4C-samp'),linewidth=.75)+
   geom_line(mapping=aes(x=x_act,y=y_act,color='pva'),linewidth=.5,linetype=2)+
@@ -274,23 +276,23 @@ annmax_ggp<-ggplot(data=annmax_dt)+theme_minimal()+
   #scale_color_manual(breaks=c('cal_obs','pva','swm-samp','swm4C-samp'),values=c(clrs[[7]],clrs[[1]],clrs[[9]],clrs[[2]]))+
   #scale_fill_manual(breaks=c('swm_99','swm4C_99'),values=c(clrs[[9]],clrs[[2]]))+
   #scale_color_manual(breaks=c('cal_obs','sim','sim_cc','pva','swm-samp','swm4C-samp'),values=c(clrs[[7]],clrs[[3]],clrs[[8]],clrs[[1]],clrs[[9]],clrs[[2]]))+
-  scale_fill_manual(breaks=c('swm_99'),labels=TeX('$s.hyd^{99}_{hist}$'),values=c(clrs[[4]]))+
-  scale_color_manual(breaks=c('cal_obs','sim','pva','swm-samp'),labels=c(TeX('$obs_{cal}$'),TeX('$sim^{SWG}_{hist}$'),'USACE',TeX('$s.hyd^{median}_{hist}$')),values=c(clrs[[1]],clrs[[6]],clrs[[8]],clrs[[4]]))+
+  #scale_fill_manual(breaks=c('swm_99'),labels=TeX('$s.hyd^{99}_{hist}$'),values=c(clrs[[4]]))+
+  scale_color_manual(breaks=c('cal_obs','sim','pva','swm-samp'),labels=c(TeX('obs'),TeX('SAC-SMA'),'USACE',TeX('Synthetic Historical')),values=c(clrs[[1]],clrs[[6]],clrs[[8]],clrs[[4]]))+
   coord_cartesian(xlim=c(1,1050),ylim=c(0,1000),expand=F)+
   theme(legend.position = 'inside',
-        legend.position.inside = c(.4,.8),
+        legend.position.inside = c(.35,.8),
         legend.box = 'horizontal',
         legend.key.spacing.y = unit(0.01,'cm'),
         legend.key.spacing.x = unit(0.01,'cm'),
         legend.title=element_blank(),
-        axis.text=element_text(size=9),
-        axis.title=element_text(size=12),
-        legend.text = element_text(size=9),
+        axis.text=element_text(size=11),
+        axis.title=element_text(size=14),
+        legend.text = element_text(size=12),
         panel.grid.major.y = element_line(size=1))+
   theme(axis.text.x=element_blank(),
         axis.title.x=element_blank(),
-        axis.title.y=element_blank())+
-  guides(shape = guide_legend(order=2),col=guide_legend(order=1))
+        axis.title.y=element_blank())
+  #guides(shape = guide_legend(order=2),col=guide_legend(order=1))
 
 annmax_ggp
 ggsave(paste('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/swm_plots/log-annmax.png',sep=''),annmax_ggp,dpi=320,width=4,height=3,unit='in')
@@ -312,8 +314,10 @@ ffc_ggp_cc<-ggplot(data=ffc_dt)+theme_minimal()+
   scale_x_continuous(breaks=qnorm(c(0.001,0.02,0.15,0.5,0.85,0.98,0.999)),
                      labels = c(0.001,0.02,0.15,0.5,0.85,0.98,0.999),
                      limits = c(-3.1,3.1))+
-  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc,fill='swm4C_99'),alpha=0.25)+
-  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc,fill='swm4C_99'),alpha=0.25)+
+  #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc),alpha=0.25,fill=clrs[[4]])+
+  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin),alpha=0.15,fill=clrs[[2]])+
   #geom_line(mapping=aes(x=x,y=obs,color='obs'),linewidth=.75)+
   #geom_line(mapping=aes(x=x,y=sim,color='sim'),linewidth=.5,alpha=0.5)+
   geom_line(mapping=aes(x=x,y=swm_med,color='swm'),linewidth=.75,alpha=0.5)+
@@ -323,18 +327,18 @@ ffc_ggp_cc<-ggplot(data=ffc_dt)+theme_minimal()+
   coord_cartesian(xlim=c(-3.1,1.25),ylim=c(1,500),expand=F)+
   #scale_color_manual(breaks=c('obs','sim','swm4C'),values=c(clrs[[1]],clrs[[3]],clrs[[2]]))+
   #scale_fill_manual(breaks=c('swm_99','swm4C_99'),values=c(clrs[[9]],clrs[[2]]))+
-  scale_color_manual(breaks=c('swm','swm_4C'),labels=c(TeX('$s.hyd_{hist}^{median}$'),TeX('$s.hyd_{4C}^{median}$')),values=c(clrs[[4]],clrs[[2]]))+
-  scale_fill_manual(breaks=c('swm_99','swm4C_99'),labels=c(TeX('$s.hyd^{99}_{hist}$'),TeX('$s.hyd_{4C}^{99}$')),values=c(clrs[[4]],clrs[[2]]))+
+  scale_color_manual(breaks=c('swm','swm_4C'),labels=c(TeX('Synthetic Historical'),TeX('Synthetic 4C')),values=c(clrs[[4]],clrs[[2]]))+
+  #scale_fill_manual(breaks=c('swm_99','swm4C_99'),labels=c(TeX('$s.hyd^{99}_{hist}$'),TeX('$s.hyd_{4C}^{99}$')),values=c(clrs[[4]],clrs[[2]]))+
   theme(legend.position = 'inside',
-        legend.position.inside = c(.8,.7),
+        legend.position.inside = c(.5,.85),
         legend.key.spacing.y = unit(0.01,'cm'),
         legend.key.spacing.x = unit(0.01,'cm'),
         legend.title=element_blank(),
-        axis.text=element_text(size=9),
-        axis.title=element_text(size=12),
-        legend.text = element_text(size=9),
-        panel.grid.major.y = element_line(size=1))+
-  guides(shape = guide_legend(order=2),col=guide_legend(order=1))
+        axis.text=element_text(size=11),
+        axis.title=element_text(size=14),
+        legend.text = element_text(size=12),
+        panel.grid.major.y = element_line(size=1))
+  #guides(shape = guide_legend(order=2),col=guide_legend(order=1))
 
 ggsave(paste('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/swm_plots/ffc-annmax-samps_CC.png',sep=''),ffc_ggp_cc,dpi=320,width=3.5,height=3,unit='in')
 ffc_ggp_cc
@@ -380,8 +384,10 @@ annmax_ggp_cc<-ggplot(data=annmax_dt)+theme_minimal()+
                      limits=c(1,1010))+ylim(0,1000)+
   #geom_point(mapping=aes(x=x_swm,y=y_stoch,color='sim'),size=.5,shape=16)+
   #geom_point(mapping=aes(x=x_swm,y=y_stoch_cc,color='sim_cc'),size=.5,shape=16)+
-  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc,fill='swm4C_99'),alpha=0.25)+
-  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc,fill='swm4C_99'),alpha=0.25)+
+  #geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin,fill='swm_99'),alpha=0.15)+
+  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax_cc,ymin=ymin_cc),alpha=0.25,fill=clrs[[2]])+
+  geom_ribbon(mapping=aes(x=x_swm,ymax=ymax,ymin=ymin),alpha=0.15,fill=clrs[[4]])+
   geom_line(mapping=aes(x=x_swm,y=swm_samp,color='swm-samp'),linewidth=.75)+
   geom_line(mapping=aes(x=x_swm,y=swm_cc_samp,color='swm4C-samp'),linewidth=.75)+
   geom_line(mapping=aes(x=x_act,y=y_act,color='pva'),linewidth=.5,linetype=2)+
@@ -402,21 +408,21 @@ annmax_ggp_cc<-ggplot(data=annmax_dt)+theme_minimal()+
   #scale_color_manual(breaks=c('cal_obs','pva','swm-samp','swm4C-samp'),values=c(clrs[[7]],clrs[[1]],clrs[[9]],clrs[[2]]))+
   #scale_fill_manual(breaks=c('swm_99','swm4C_99'),values=c(clrs[[9]],clrs[[2]]))+
   #scale_color_manual(breaks=c('cal_obs','sim','sim_cc','pva','swm-samp','swm4C-samp'),values=c(clrs[[7]],clrs[[3]],clrs[[8]],clrs[[1]],clrs[[9]],clrs[[2]]))+
-  scale_fill_manual(breaks=c('swm_99','swm4C_99'),labels=c(TeX('$s.hyd_{hist}^{99}$'),TeX('$s.hyd_{4C}^{99}$')),values=c(clrs[[4]],clrs[[2]]))+
-  scale_color_manual(breaks=c('pva','swm-samp','swm4C-samp'),labels=c('USACE',TeX('$s.hyd_{hist}^{median}$'),TeX('$s.hyd_{4C}^{median}$')),values=c(clrs[[8]],clrs[[4]],clrs[[2]]))+
+  #scale_fill_manual(breaks=c('swm_99','swm4C_99'),labels=c(TeX('$s.hyd_{hist}^{99}$'),TeX('$s.hyd_{4C}^{99}$')),values=c(clrs[[4]],clrs[[2]]))+
+  scale_color_manual(breaks=c('pva','swm-samp','swm4C-samp'),labels=c('USACE',TeX('Synthetic Historical'),TeX('Synthetic 4C')),values=c(clrs[[8]],clrs[[4]],clrs[[2]]))+
   coord_cartesian(xlim=c(1,1050),ylim=c(0,1000),expand=F)+
   theme(legend.position = 'inside',
-        legend.position.inside = c(.4,.8),
+        legend.position.inside = c(.35,.8),
         legend.box = 'horizontal',
         legend.key.spacing.y = unit(0.01,'cm'),
         legend.key.spacing.x = unit(0.01,'cm'),
         legend.title=element_blank(),
-        axis.text=element_text(size=9),
-        axis.title=element_text(size=12),
-        legend.text = element_text(size=9),
+        axis.text=element_text(size=11),
+        axis.title=element_text(size=14),
+        legend.text = element_text(size=12),
         panel.grid.major.y = element_line(size=1))+
-  theme(axis.title.y=element_blank())+
-  guides(shape = guide_legend(order=2),col=guide_legend(order=1))
+  theme(axis.title.y=element_blank())
+  #guides(shape = guide_legend(order=2),col=guide_legend(order=1))
 
 annmax_ggp_cc
 ggsave(paste('e:/Projects/FIRO/firo_syn-forecast_stochastic-CC/figs/swm_plots/log-annmax_CC.png',sep=''),annmax_ggp_cc,dpi=320,width=4,height=3,unit='in')

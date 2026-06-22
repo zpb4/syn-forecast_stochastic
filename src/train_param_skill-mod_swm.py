@@ -34,7 +34,7 @@ skill_dcy = 0.1
 skill_tail = 0.5
 
 tocs_reset = 'none'   # 'tocs' to reset to baseline tocs at beginning of WY, 'firo' to reset to firo pool, 'none' to use continuous storage profile
-use_firo_top = False    #if T, use FVA published top, if F, model optimizes the FIRO top along with risk curve
+use_firo_top = False   #if T, use FVA published top, if F, model optimizes the FIRO top along with risk curve
 use_firo_bottom = False  #if T, use FVA published bottom, if F, no restriction besides elev dependent release
 seed = 1
 opt_pct = 0.9

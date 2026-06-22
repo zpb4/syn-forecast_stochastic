@@ -135,7 +135,7 @@ for(i in 1:length(leads)){
           panel.grid.major.y = element_line(size=1))+
     {if(i==1)
       theme(legend.position = 'inside',
-            legend.position.inside = c(.6,.7),
+            legend.position.inside = c(.4,.7),
             legend.box = 'horizontal',
             legend.key.spacing.y = unit(0.01,'cm'),
             legend.key.spacing.x = unit(0.01,'cm'),
@@ -187,9 +187,9 @@ for(i in 1:length(leads)){
   hefs_ens_plt<-ggplot(df)+theme_minimal()+
     #geom_smooth(mapping=aes(x=x,y=value,group=variable,color=grp,size=grp,alpha=grp),se=F,span=.15)+
     geom_line(mapping=aes(x=x,y=value,group=variable,color=col,linewidth=col,alpha=col))+
-    scale_color_manual(values=c('obs'=clrs[[4]],'shefs'=clrs[[9]]), labels=c(TeX('$s.hyd_{hist}$'),TeX('$s.HEFS_{hist}$')))+
-    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$s.hyd_{hist}$'),TeX('$s.HEFS_{hist}$')))+
-    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$s.hyd_{hist}$'),TeX('$s.HEFS_{hist}$')))+
+    scale_color_manual(values=c('obs'=clrs[[4]],'shefs'=clrs[[9]]), labels=c(TeX('$syn.\\,hydro_{hist}$'),TeX('$syn.\\,fcst_{hist}$')))+
+    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$syn.\\,hydro_{hist}$'),TeX('$syn.\\,fcst_{hist}$')))+
+    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$syn.\\,hydro_{hist}$'),TeX('$syn.\\,fcst_{hist}$')))+
     geom_vline(xintercept = leads[i],linetype='dotted',linewidth=0.25)+
     {if(i==length(leads))
       annotate('text',x=leads[i],y=0.95*ylm,label=hind_evt_date,size=4,hjust=-0.25)}+
@@ -201,7 +201,7 @@ for(i in 1:length(leads)){
           panel.grid.major.y = element_line(size=1))+
     {if(i==1)
       theme(legend.position = 'inside',
-            legend.position.inside = c(.65,.7),
+            legend.position.inside = c(.5,.7),
             legend.box = 'horizontal',
             legend.key.spacing.y = unit(0.01,'cm'),
             legend.key.spacing.x = unit(0.01,'cm'),
@@ -247,9 +247,9 @@ for(i in 1:length(leads)){
   hefs_ens_plt<-ggplot(df)+theme_minimal()+
     #geom_smooth(mapping=aes(x=x,y=value,group=variable,color=grp,size=grp,alpha=grp),se=F,span=.15)+
     geom_line(mapping=aes(x=x,y=value,group=variable,color=col,linewidth=col,alpha=col))+
-    scale_color_manual(values=c('obs'=clrs[[2]],'shefs'=clrs[[9]]), labels=c(TeX('$s.hyd_{4C}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$s.hyd_{4C}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$s.hyd_{4C}$'),TeX('$s.HEFS_{4C}$')))+
+    scale_color_manual(values=c('obs'=clrs[[2]],'shefs'=clrs[[9]]), labels=c(TeX('$syn.\\,hydro_{4C}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_linewidth_manual(values=c('obs'=1.5,'shefs'=.75), labels=c(TeX('$syn.\\,hydro_{4C}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_alpha_manual(values=c('obs'=1,'shefs'=.25), labels=c(TeX('$syn.\\,hydro_{4C}$'),TeX('$syn.\\,fcst_{4C}$')))+
     geom_vline(xintercept = leads[i],linetype='dotted',linewidth=0.25)+
     {if(i==length(leads))
       annotate('text',x=leads[i],y=0.95*ylm,label=hind_evt_date,size=4,hjust=-0.25)}+
@@ -261,7 +261,7 @@ for(i in 1:length(leads)){
           panel.grid.major.y = element_line(size=1))+
     {if(i==1)
       theme(legend.position = 'inside',
-            legend.position.inside = c(.65,.7),
+            legend.position.inside = c(.5,.7),
             legend.box = 'horizontal',
             legend.key.spacing.y = unit(0.01,'cm'),
             legend.key.spacing.x = unit(0.01,'cm'),
@@ -306,8 +306,8 @@ for(i in 1:length(lds)){
   
   ecrps_bplt <- ggplot(df)+theme_minimal()+
     geom_boxplot(aes(x=factor(x),y=value,fill=factor(grp),col=factor(grp)),width=.5,outlier.size = .5,outlier.color = clrs[[9]],outlier.alpha = 0.25)+
-    scale_fill_manual(name='',values=c('hefs'=str_c(clrs[[9]],'50'),'shefs'=str_c(clrs[[9]],'50'),'shefscc'=str_c(clrs[[9]],'50')), labels=c(TeX('$HEFS$'),TeX('$s.HEFS_{hist}$'),TeX('$s.HEFS_{4C}$')))+
-    scale_color_manual(name='',values=c('hefs'=clrs[[1]],'shefs'=clrs[[4]],'shefscc'=clrs[[2]]), labels=c(TeX('$HEFS$'),TeX('$s.HEFS_{hist}$'),TeX('$s.HEFS_{4C}$')))+
+    scale_fill_manual(name='',values=c('hefs'=str_c(clrs[[9]],'50'),'shefs'=str_c(clrs[[9]],'50'),'shefscc'=str_c(clrs[[9]],'50')), labels=c(TeX('$HEFS$'),TeX('$syn.\\,fcst_{hist}$'),TeX('$syn.\\,fcst_{4C}$')))+
+    scale_color_manual(name='',values=c('hefs'=clrs[[1]],'shefs'=clrs[[4]],'shefscc'=clrs[[2]]), labels=c(TeX('$HEFS$'),TeX('$syn.\\,fcst_{hist}$'),TeX('$syn.\\,fcst_{4C}$')))+
     scale_x_discrete(breaks=1,labels='',name='')+
     scale_y_continuous(name = 'CRPSS')+
     annotate('text',x=0.35,y=0.95,label=paste(labs[i],')',sep=''),size=6,hjust=0)+
@@ -374,7 +374,7 @@ for(i in 1:length(lds)){
     geom_ribbon(mapping=aes(x=x,ymax=syncc_upr,ymin=syncc_lwr,fill='shefscc'),alpha=0.15)+
     geom_line(mapping=aes(x=x,y=hefs,color='hefs'),linewidth=1)+
     scale_color_manual(values=c('hefs'=clrs[[9]]), labels=c(TeX('$HEFS$')))+
-    scale_fill_manual(values=c('shefs'=clrs[[4]],'shefscc'=clrs[[2]]), labels=c(TeX('$s.HEFS_{hist}$'),TeX('$s.HEFS_{4C}$')))+
+    scale_fill_manual(values=c('shefs'=clrs[[4]],'shefscc'=clrs[[2]]), labels=c(TeX('$syn.\\,fcst_{hist}$'),TeX('$syn.\\,fcst_{4C}$')))+
     #labs(x='ensemble rank',y='cumulative fraction',caption=paste('ld',lds[i]))+
     labs(x='ensemble rank',y='cumulative fraction')+
     coord_cartesian(xlim=c(0,n_ens+2),ylim=c(-0.01,1),expand=F)+
@@ -389,7 +389,7 @@ for(i in 1:length(lds)){
           plot.caption = element_text(hjust=0.5,size=16))+
     {if(i==length(lds))
       theme(legend.position = 'inside',
-            legend.position.inside = c(.45,.7),
+            legend.position.inside = c(.4,.7),
             legend.box = 'vertical',
             legend.key.spacing.y = unit(0.01,'cm'),
             legend.key.spacing.x = unit(0.01,'cm'),

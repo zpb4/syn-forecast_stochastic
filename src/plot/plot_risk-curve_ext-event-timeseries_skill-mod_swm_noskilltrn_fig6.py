@@ -224,7 +224,7 @@ f = plt.figure(layout='constrained',figsize=(6,3))
 gs0 = f.add_gridspec(1,1)
 
 evt_idx = evt_idx_swm_tst[swm_evt_no-1]
-evt_date = df_idx.values[evt_idx].strftime("%Y-%m-%d")
+#evt_date = df_idx.values[evt_idx].strftime("%Y-%m-%d")
 
 
 evt = df_idx[evt_idx].strftime('%Y-%m-%d')
@@ -251,7 +251,7 @@ l1, = a1.plot(df_idx[dt_idx], swm_tst_arr[0,0,dt_idx]/1000, c=swm_sk0_skn4,alpha
 l2, = a1.plot(df_idx[dt_idx], swm_tst_arr[1,0,dt_idx]/1000, c=swm_sk0,alpha=0.75)
 l3, = a1.plot(df_idx[dt_idx], swm_tst_arr[2,0,dt_idx]/1000, c=swm_sk0_skmod,alpha=0.75)
 l4, = a1.plot(df_idx[dt_idx], swm_tst_arr[3,0,dt_idx]/1000, c=swm_sk0_skhi,alpha=0.75)
-a1.legend([l1,l2,l3,l4],['$SS_{mod}:%s$' %(skillmods[0]),'$SS_{mod}:%s$' %(skillmods[1]),'$SS_{mod}:%s$' %(skillmods[2]),'$SS_{mod}:%s$' %(skillmods[3])],bbox_transform=a1.transAxes,loc=(.01,.4),fontsize='large',frameon=False)
+a1.legend([l1,l2,l3,l4],['$SS:%s$' %(skillmods[0]),'$SS:%s$' %(skillmods[1]),'$SS:%s$' %(skillmods[2]),'$SS:%s$' %(skillmods[3])],bbox_transform=a1.transAxes,loc=(.01,.4),fontsize='large',frameon=False)
 a1.axvline(df_idx[evt_idx],linewidth=0.5,color='gray',alpha=0.5,linestyle='--')
 a1.text(df_idx[evt_idx],(1.05*(K-ymn)+ymn)/1000,evt,color='gray',alpha=0.5,fontsize='large')
 #a1.text(df_idx[evt_idx-pad+1],(.1*(ymx-ymn)+ymn)/1000,'c)',fontsize='xx-large',fontweight='bold')

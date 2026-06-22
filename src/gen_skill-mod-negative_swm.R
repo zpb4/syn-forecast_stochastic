@@ -64,7 +64,8 @@ climo_farray_swmcc <- readRDS(paste('out/',loc,'/synhefs_climo_swmcc.rds',sep=''
 #apply skill scaling
 w <- leads:1
 dcy = (exp(skill_dcy*w)-exp(skill_dcy)) / (exp(skill_dcy*w[length(w)-1])-exp(skill_dcy))
-dcy_out = dcy/max(dcy) * ((-skill_mod) - (-skill_mod)*skill_tail) + ((-skill_mod)*skill_tail)
+#dcy_out = dcy/max(dcy) * ((-skill_mod) - (-skill_mod)*skill_tail) + ((-skill_mod)*skill_tail)
+dcy_out = rep(-skill_mod,leads)
 
 #recalculate HEFS with updated skill
 hefs_mod <- array(NA,dim(hefs_fwd))

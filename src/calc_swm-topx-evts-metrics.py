@@ -98,6 +98,7 @@ evt_idx_swmcc_tst = syn_util.declust_evts_extract(Q_swmcc_tst,n_evts,sep)
 #swm tst array with multiple skills
 swmcc_tst_arr = np.load('out/%s/%s/swm-test-array_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
 swmcc_tst_arr_skilltrn = np.load('out/%s/%s/swm-test-array-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
+swmcc_tst_arr_skilltrn_hist = np.load('out/%s/%s/swm-test-array-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff))['arr']
 
 #swm test data
 swm_ind = 'swm'
@@ -222,5 +223,30 @@ for k in range(n_evts):
         
 np.savez('out/%s/%s/swm-test-metrics-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff),arr=swmcc_tst_metrics_skilltrn)
 np.savez('out/%s/%s/swm-test-apr1-skilltrain_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff),arr=swmcc_tst_apr1_skilltrn)
+
+
+swmcc_tst_metrics_skilltrn_hist = np.zeros((14,n_evts,len(skillmods))) 
+swmcc_tst_apr1_skilltrn_hist = np.zeros((np.shape(apr1_idx)[1],len(skillmods)))
+
+for k in range(n_evts):
+    for j in range(len(skillmods)):         
+        swmcc_tst_metrics_skilltrn_hist[0,k,j] = np.max(swmcc_tst_arr_skilltrn_hist[j,6,(evt_idx[k]-15):evt_idx[k]+2])
+        swmcc_tst_metrics_skilltrn_hist[1,k,j] = np.max(swmcc_tst_arr_skilltrn_hist[j,5,(evt_idx[k]-15):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[2,k,j] = np.max(swmcc_tst_arr_skilltrn_hist[j,8,(evt_idx[k]-15):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[3,k,j] = np.max(swmcc_tst_arr_skilltrn_hist[j,1,(evt_idx[k]-15):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[4,k,j] = np.mean(swmcc_tst_arr_skilltrn_hist[j,1,(evt_idx[k]-15):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[5,k,j] = np.max(swmcc_tst_arr_skilltrn_hist[j,9,(evt_idx[k]-15):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[6,k,j] = np.mean(swmcc_tst_arr_skilltrn_hist[j,9,(evt_idx[k]-15):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[7,k,j] = np.max(swmcc_tst_arr_skilltrn_hist[j,6,(evt_idx[k]+1):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[8,k,j] = np.sum(swmcc_tst_arr_skilltrn_hist[j,6,(evt_idx[k]+1):(evt_idx[k]+15)])
+        swmcc_tst_metrics_skilltrn_hist[9,k,j] = np.mean((swmcc_tst_arr_skilltrn_hist[j,0,(evt_idx[k]-15):(evt_idx[k]+15)] - swmcc_tst_arr_skilltrn_hist[j,5,(evt_idx[k]-15):(evt_idx[k]+15)]))
+        swmcc_tst_metrics_skilltrn_hist[10,k,j] = np.mean((swmcc_tst_arr_skilltrn_hist[j,0,(evt_idx[k]-15):(evt_idx[k]+15)] - swmcc_tst_arr_skilltrn_hist[j,5,(evt_idx[k]-15):(evt_idx[k]+15)])/swmcc_tst_arr_skilltrn_hist[j,2,(evt_idx[k]-15):(evt_idx[k]+15)]) #mean of sub-FIRO storage normalized by top of FIRO pool
+        swmcc_tst_metrics_skilltrn_hist[11,k,j] = np.count_nonzero(swmcc_tst_arr_skilltrn_hist[j,3,:])
+        swmcc_tst_metrics_skilltrn_hist[12,k,j] = np.sum(swmcc_tst_arr_skilltrn_hist[j,3,:])
+        swmcc_tst_metrics_skilltrn_hist[13,k,j] = np.mean(swmcc_tst_arr_skilltrn_hist[j,0,cold_idx])
+        swmcc_tst_apr1_skilltrn_hist[:,j] = swmcc_tst_arr_skilltrn_hist[j,0,apr1_idx]
+        
+np.savez('out/%s/%s/swm-test-metrics-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff),arr=swmcc_tst_metrics_skilltrn_hist)
+np.savez('out/%s/%s/swm-test-apr1-skilltrain-hist_tocs-reset=%s_use-firo-top=%s_use-firo-bottom=%s_seed-%s_mods=%s_dcy=%s_tail=%s_swm=%s_samp=%s_same-swm=%s_nevts=%s_cutoff=%s.npz' %(loc,site,tocs_reset,use_firo_top,use_firo_bottom,seed,str(skillmods),skill_dcy,skill_tail,swm_ind,samp_no,same_swm,n_evts,yr_cutoff),arr=swmcc_tst_apr1_skilltrn_hist)
 
 ##########################################################END#####################################################
