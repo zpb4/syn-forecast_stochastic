@@ -4,7 +4,16 @@ This repository contains the codebase to generate synthetic hydrologic sequences
 Brodeur, Z. P., Taylor, W., Herman, J. D., & Steinschneider, S. (2025). Synthetic Ensemble Forecasts: Operations‐Based Evaluation and Inter‐Model Comparison for Reservoir Systems Across California. Water Resources Research, 61(e2024WR039324). https://doi.org/10.1029/%25202024WR039324   
    
 
-The workflow described below 
+The workflow described below utilizes code (stored in this repository and archived via formal releases at link below) and data (stored in Zenodo repository) to:   
+1. Generate synthetic hydrology for Lake Oroville (Location ID: YRS, Site ID: ORDC1) from 1000-year hydrologic sequences developed from SWG simulations and a process-based hydrologic model (SAC-SMA). The synthetic hydrology process is stochastic and generates a total of 100 samples that are used in various parts of the analysis _Note: The SWG and SAC-SMA models were developed in previous work and described in the draft manuscript_
+2. Fit and generate synthetic forecasts for Lake Oroville against multiple samples of the synthetic hydrologic sequences
+3. Post-process the synthetic forecasts to impart differing degrees of skill modification
+4. Train a FIRO model to various combinations of synthetic hydrology and forecasts
+5. Evaluate FIRO model against out-of-sample synthetic hydrology and forecasts
+6. Plot results to support the formal analysis in the draft manuscript
+
+
+
 
 Raw data to support this code are stored here:  
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20801662.svg)](https://doi.org/10.5281/zenodo.20801662)  
@@ -12,27 +21,34 @@ Releases of this software are stored permanently here:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20803036.svg)](https://doi.org/10.5281/zenodo.20803036)   
 
 ---
-#### Note: Once dat.
+#### Note: Once data have been downloaded from Zenodo repository and unzipped, the entire contents of the folder should be placed in a folder labeled 'data' in the root repository. A repository labeled 'out' will archive all the generated data.
 
 ## Dependencies
-- R package 'stringr'
-- R package 'lubridate'
-
+- R package 'future'
+- R package 'DEoptim'
+- R package 'twosamples'
+- R package 'ncdf4'
+- Python library 'numpy'
+- Python library 'pandas'
+- Python library 'xarray'
+- Python library 'scipy.optimize'
+- Python library 'numba'
    
-Information below describes setup and execution of the model:   
-## Data
-
-
 ## Workflow
 ### 1. Data Processing 
-Note: Specification of the 'loc' variable in these scripts will process all associated sites
-Processes the forecast and observation data to standard R data structures for Period of Record (POR) hindcast:
+Note: Current settings of the scripts support processing specific to the 'YRS' location and 'ORDC1' site; ORDC1 will be reference here on out. 
 1) ./src/data_processing.R
-   - all HEFS and observations data files for POR
+   - Prepares the raw Hydrologic Ensemble Forecast Service (HEFS) ensemble forecast .csv's for the ORDC1 site to be processed by follow-on routines
    
-### 2. Optimization
-Note: Must specify the 'loc' variable for the overall location and the 'keysite_name' variable for the site used to condition the kNN sampling. Other user defined parameters are set to the default used in the study, including '5fold-test' for the fully out-of-sample 5-fold procedure outlined in the manuscript.  
-Optimizes the threshold curve that constrains the scaling procedure for synthetic forecast generation:
+### 2. Synthetic Hydrology Generation
+1) ./src/optimize_synthetic_forecasts.R
+   - main optimization script; calls the 'synthetic_forecast_opt-fun.R' function
+2) ./src/synthetic_forecast_opt-fun.R
+   - function used for the optimization; calls the 'syn_gen_opt.R' function
+3) ./src/syn_gen_opt.R
+   - synthetic generation function used by the optimization procedure.
+  
+### 3. Synthetic Forecast Generation and Skill Modification
 1) ./src/optimize_synthetic_forecasts.R
    - main optimization script; calls the 'synthetic_forecast_opt-fun.R' function
 2) ./src/synthetic_forecast_opt-fun.R
@@ -40,24 +56,13 @@ Optimizes the threshold curve that constrains the scaling procedure for syntheti
 3) ./src/syn_gen_opt.R
    - synthetic generation function used by the optimization procedure.
 
-### 3. Generation
+### 4. Training and Simulation of FIRO model
 Note: Must specify the 'loc' variable for the overall location and the 'keysite_name' variable for the site used to condition the kNN sampling. Other user defined parameters are set to the default used in the study, including '5fold-test' for the fully out-of-sample 5-fold procedure 
 The user needs to run the following scripts in this order for the model to produce the synthetic forecasts. _Note that the ./src/create_synthetic_forecasts.R script calls the function ./src/syn_gen.R, which holds the actual synthetic forecast model_:
 1) ./src/create_synthetic_forecasts.R
 2) ./src/syn_gen.R
 
-The output of the first two steps is an R array that is saved as an R data structure file (.rds). In order to further post-process data for transfer to other models, languages, etc, there are two output options:   
-
-3) ./src/5fold-val_collate.R
-   - combines the folds to a single array for the 5-fold generation schemes ('5fold', '5fold-test')
-4) ./src/data_writeout_ncdf.R
-   - writes both HEFS and synthetic HEFS files to a netCDF file
-5) ./src/slice_plot-ens.R
-   - slices a 10x sample subset from the generated synthetic forecast array for plotting; the raw arrays for large sample runs (e.g. 100 samples) require too much RAM for typical personal computers
-
-All scripts create and output metadata to the ./out/_main_hindcast_location_/ subdirectory. For sites with separate 1986 data, there are separate scripts with a '_86.R' suffix to process those specific data subsets.  
-
-## 4. Verification
+## 5. Analysis and Plotting
 
 Detailed forecast verification for the synthetic forecasts is located at this repo: [https://github.com/zpb4/Synthetic-Forecast_Verification](https://github.com/zpb4/Synthetic-Forecast_Verification). This repo is designed to integrate seamlessly with the Synthetic Forecast generation output if located on the same root directory.
 
