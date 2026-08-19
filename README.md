@@ -5,7 +5,7 @@ Brodeur, Z. P., Taylor, W., Herman, J. D., & Steinschneider, S. (2025). Syntheti
    
 
 The workflow described below utilizes code (stored in this repository and archived via formal releases at link below) and data (stored in Zenodo repository) to:   
-1. Generate synthetic hydrology for Lake Oroville (Location ID: YRS, Site ID: ORDC1) from 1000-year hydrologic sequences developed from SWG simulations and a process-based hydrologic model (SAC-SMA). The synthetic hydrology process is stochastic and generates a total of 100 samples that are used in various parts of the analysis _Note: The SWG and SAC-SMA models were developed in previous work and described in the draft manuscript_
+1. Generate synthetic hydrology for Lake Oroville (Location ID: YRS, Site ID: ORDC1) from 1000-year hydrologic sequences developed from SWG simulations and a process-based hydrologic model (SAC-SMA). The synthetic hydrology process is stochastic watershed modeling (SWM) procedure and generates a total of 100 samples that are used in various parts of the analysis _Note: The SWG and SAC-SMA models were developed in previous work and described in the draft manuscript_
 2. Fit and generate synthetic forecasts for Lake Oroville against multiple samples of the synthetic hydrologic sequences
 3. Post-process the synthetic forecasts to impart differing degrees of skill modification
 4. Train a FIRO model to various combinations of synthetic hydrology and forecasts
@@ -35,38 +35,72 @@ Releases of this software are stored permanently here:
 - Python library 'numba'
    
 ## Workflow
-### 1. Data Processing 
+The workflow is arranged in consecutive steps, where in many cases the data from the previous step is required to run the current step.
 Note: Current settings of the scripts support processing specific to the 'YRS' location and 'ORDC1' site; ORDC1 will be reference here on out. 
+### 1. Data Processing 
+Clean and process the ensemble forecast data needed to support the synthetic forecasting routine
 1) ./src/data_processing.R
    - Prepares the raw Hydrologic Ensemble Forecast Service (HEFS) ensemble forecast .csv's for the ORDC1 site to be processed by follow-on routines
    
 ### 2. Synthetic Hydrology Generation
-1) ./src/optimize_synthetic_forecasts.R
-   - main optimization script; calls the 'synthetic_forecast_opt-fun.R' function
-2) ./src/synthetic_forecast_opt-fun.R
-   - function used for the optimization; calls the 'syn_gen_opt.R' function
-3) ./src/syn_gen_opt.R
-   - synthetic generation function used by the optimization procedure.
+Generates the 1000-year Stochastic Watershed Model (SWM) hydrologic sequences
+1) ./src/swm_gen.R
+   - generates stochastic, synthetic hydrologic sequence samples based on the hydrologic simulations from a couple SWG and SAC-SMA model; routine generates synthetic hydrology under both historical conditions and +4C warmed conditions in the SWG. 
   
 ### 3. Synthetic Forecast Generation and Skill Modification
-1) ./src/optimize_synthetic_forecasts.R
-   - main optimization script; calls the 'synthetic_forecast_opt-fun.R' function
-2) ./src/synthetic_forecast_opt-fun.R
-   - function used for the optimization; calls the 'syn_gen_opt.R' function
-3) ./src/syn_gen_opt.R
-   - synthetic generation function used by the optimization procedure.
+Fit and simulate synthetic ensemble forecasts of differing skill levels against the synthetic hydrology sequences
+1) ./src/optimize_synthetic_forecasts.R   
+   - optimization routine for the synthetic forecasting model against the HEFS training data; calls the 'synthetic_forecast_opt-fun.R' function
+2) ./src/create_synthetic_forecasts_swm.R
+   - generates synthetic forecasts against both the the historical and 4C warmed synthetic hydrology scenarios; calls the 'syn_gen_swm.R' function
+3) ./src/calc-climo-forecast.R
+   - calculates a climatological forecast for each synthetic hydrology sequence to enable the skill degradation procedure 
+4) ./src/gen_skill-mod_swm.R   
+   - postprocesses generated synthetic forecasts to impart differing degrees of specified skill improvement between 0 and 1   
+5) ./src/gen_skill-mod-negative_swm.R   
+   - postprocesses generated synthetic forecasts to impart differing degrees of specified skill degradation between 0 and -1
+
+#### 3a. Synthetic forecast helper functions
+   - ./src/synthetic_forecast_opt-fun.R   
+      - function used for the optimization; calls the 'syn_gen_opt.R' function
+   - ./src/syn_gen_opt.R   
+      - synthetic generation function used by the optimization procedure
+   - ./src/syn_gen_swm.R   
+      - synthetic generation function used to generate synthetic forecasts against the synthetic hydrologic sequences
 
 ### 4. Training and Simulation of FIRO model
-Note: Must specify the 'loc' variable for the overall location and the 'keysite_name' variable for the site used to condition the kNN sampling. Other user defined parameters are set to the default used in the study, including '5fold-test' for the fully out-of-sample 5-fold procedure 
-The user needs to run the following scripts in this order for the model to produce the synthetic forecasts. _Note that the ./src/create_synthetic_forecasts.R script calls the function ./src/syn_gen.R, which holds the actual synthetic forecast model_:
-1) ./src/create_synthetic_forecasts.R
-2) ./src/syn_gen.R
+Fit and simulate a FIRO model for Lake Oroville against different sequences of synthetic hydrology and forecasts
+1) ./src/train_param_skill-mod_swm.py
 
-## 5. Analysis and Plotting
+#### 4a. FIRO model helper functions
+   - ./src/model.py   
+      - Lake Oroville FIRO simulation model
+   - ./src/syn_util.py  
+      - various helper functions for the FIRO simulation routine
+   - ./src/util.py  
+      - additional helper functions for the FIRO simulation routine
 
-Detailed forecast verification for the synthetic forecasts is located at this repo: [https://github.com/zpb4/Synthetic-Forecast_Verification](https://github.com/zpb4/Synthetic-Forecast_Verification). This repo is designed to integrate seamlessly with the Synthetic Forecast generation output if located on the same root directory.
+### 5. Analysis and Plotting
+Simulate and analyze FIRO outcomes, calculate metrics of interest, and plot results
+1) ./src/calc_ecrps-rankhist_swm.R   
+   - calculates eCRPS and Rank Histogram metrics for synthetic forecast simulations for verification purposes
+2) ./src/calc_skill-mod_display-stats.R  
+   - calculates ensemble forecast metrics for synthetic forecast simulations to support plotting analyses
+3) ./src/calc_swm-topx-metrics.py   
+   - simulates FIRO model against synthetic hydrology and forecast sequences and evaluates outcomes in an aggregated sense to support plotting analyses
+4) ./src/calc_swm-topx-evts-metrics.py   
+   - simulates FIRO model against synthetic hydrology and forecast sequences and evaluates outcomes in an event-based manner to support plotting analyses
+5) ./plot/*
+   - plotting functions once previous analysis is complete arranged in the order presented in the draft manuscript
 
+#### 5a. Analysis and plotting helper functions
+   - ./src/forecast_verification_functions.R 
+      - helper functions for the forecast verification routines written in R
+   - ./src/ensemble_verification_functions.py
+      - helper functions to support evaluation of FIRO outcomes
+   - ./src/mm-cfs_conversion.R
+      - initial conversion from baseline simulation in mm to cfs
 
 ## Contact
 
-Zach Brodeur: zpb4@cornell.edu
+Zach Brodeur: zpbrodeur@ucsd.edu
