@@ -7,9 +7,9 @@ Brodeur, Z. P., Taylor, W., Herman, J. D., & Steinschneider, S. (2025). Syntheti
 The workflow described below 
 
 Raw data to support this code are stored here: 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20801662.svg)](https://doi.org/10.5281/zenodo.20801662)  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20801662.org)](https://doi.org/10.5281/zenodo.20801662)  
 Releases of this software are stored permanently here:
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20803036.svg)](https://doi.org/10.5281/zenodo.20803036)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20803036.org)](https://doi.org/10.5281/zenodo.20803036)
 
 ---
 #### Note: After downloading and extracting data from Hydroshare resources above, ensure local directory path for HEFS data is configured: './Synthetic-Forecast-v2-FIRO-DISES/data/_main_hindcast_location_/...', where '...' are the site specific sub-repos defined in 'Data' section below. Unzipping the files can result in duplication in the data path and this must be corrected for the code to function.
